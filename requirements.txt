@@ -1,2 +1,5 @@
-cryptography>=42.0.0
-pqcrypto>=0.1.0
+asyncio==4.0.0
+cffi==2.0.0
+cryptography==46.0.5
+oqs==0.10.2
+pycparser==3.0
