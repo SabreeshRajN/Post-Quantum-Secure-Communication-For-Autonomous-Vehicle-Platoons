@@ -1,0 +1,15 @@
+# Python virtual environment (should never be committed)
+env/
+venv/
+.venv/
+temp_env/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Benchmark output
+benchmark/results.csv
+
+# Node modules for frontend
+dashboard/frontend/node_modules/

@@ -1,0 +1,13 @@
+# Post-Quantum Secure V2V Platoon -- dependencies
+#
+# NOTE: the old 'oqs' pin was a MISTAKE. That PyPI package is an unrelated
+# expression interpreter, NOT liboqs. All post-quantum crypto here comes from
+# 'pqcrypto' (PQClean/Rust bindings), which provides Kyber (ML-KEM) and Dilithium (ML-DSA).
+#
+# pqcrypto's API changed significantly at 1.0 (keygen/encaps/decaps/sign/verify
+# flat functions replaced the old generate_keypair/encrypt/decrypt names) -- this
+# code targets the current 1.x API.
+
+pqcrypto>=1.0         # ML-KEM (Kyber) + ML-DSA (Dilithium)
+cryptography>=46.0    # AES-256-GCM and HKDF
+matplotlib>=3.9       # benchmark dashboard

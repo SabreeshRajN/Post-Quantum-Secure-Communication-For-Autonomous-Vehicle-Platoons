@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-9c858885-0a57-405b-9dcd-6cdc56fba52d/styles.css">
+<script src="_ds/modernist-9c858885-0a57-405b-9dcd-6cdc56fba52d/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:#08090a; }
+  a { color:#22d3ee; text-decoration:none; }
+  a:hover { color:#67e8f9; }
+  *::selection { background:rgba(236,48,19,.35); }
+  ::-webkit-scrollbar { width:8px; height:8px; }
+  ::-webkit-scrollbar-track { background:rgba(255,255,255,.03); }
+  ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.16); }
+  @keyframes pk-l2f { from { left:20%; } to { left:80%; } }
+  @keyframes pk-f2l { from { left:80%; } to { left:20%; } }
+  @keyframes pk-l2m { from { left:20%; } to { left:50%; } }
+  @keyframes pk-m2l { from { left:50%; } to { left:20%; } }
+  @keyframes pk-m2f { from { left:50%; } to { left:80%; } }
+  @keyframes pk-f2m { from { left:80%; } to { left:50%; } }
+  @keyframes v2v-pulse { 0%,100% { opacity:1; } 50% { opacity:.25; } }
+  @keyframes v2v-dash { to { stroke-dashoffset:-40; } }
+  @keyframes v2v-mitm { from { transform:translate(-50%,-50%) scale(.7); opacity:0; } to { transform:translate(-50%,-50%) scale(1); opacity:1; } }
+  @keyframes v2v-caret { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
+</style>
+</helmet>
+<div style="display:flex; flex-direction:column; height:100vh; min-height:0; background:#08090a; background-image:linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px); background-size:44px 44px; color:#e7e5e4; font-family:Archivo, sans-serif; overflow:hidden;">
+
+  <header style="display:flex; align-items:stretch; justify-content:space-between; gap:24px; padding:0; border-bottom:2px solid rgba(255,255,255,.16); background:rgba(10,11,12,.72); backdrop-filter:blur(10px); flex:none;">
+    <div style="display:flex; align-items:center; gap:16px; padding:18px 26px;">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="square" style="filter:drop-shadow(0 0 8px rgba(34,211,238,.7));"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+      <div style="display:flex; flex-direction:column; gap:3px;">
+        <h1 style="margin:0; font-size:23px; font-weight:800; letter-spacing:-.02em; text-transform:uppercase; color:#f5f5f4;">V2V Platoon Monitor</h1>
+        <p style="margin:0; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#78716c;">Post-Quantum Secure Vehicle Network &nbsp;/&nbsp; Team 11 &nbsp;/&nbsp; SKCT</p>
+      </div>
+    </div>
+    <div style="display:flex; align-items:stretch;">
+      <div style="display:flex; align-items:center; gap:10px; padding:0 24px; border-left:2px solid rgba(255,255,255,.16);">
+        <span style="{{ statusDotStyle }}"></span>
+        <span style="{{ statusTextStyle }}">{{ statusLabel }}</span>
+      </div>
+      <div style="display:flex; flex-direction:column; justify-content:center; gap:4px; padding:0 22px; border-left:2px solid rgba(255,255,255,.16); min-width:112px;">
+        <span style="font-size:9px; letter-spacing:.2em; color:#78716c; text-transform:uppercase;">Vehicles</span>
+        <span style="font-size:15px; font-weight:700; color:#f5f5f4;">{{ vehicleCount }} active</span>
+      </div>
+      <div style="display:flex; flex-direction:column; justify-content:center; gap:4px; padding:0 22px; border-left:2px solid rgba(255,255,255,.16);">
+        <span style="font-size:9px; letter-spacing:.2em; color:#78716c; text-transform:uppercase;">KEM / SIG</span>
+        <span style="font-size:15px; font-weight:700; color:#22d3ee;">Kyber-768 / Dilithium3</span>
+      </div>
+      <div style="display:flex; flex-direction:column; justify-content:center; gap:4px; padding:0 26px 0 22px; border-left:2px solid rgba(255,255,255,.16);">
+        <span style="font-size:9px; letter-spacing:.2em; color:#78716c; text-transform:uppercase;">AEAD / KDF</span>
+        <span style="font-size:15px; font-weight:700; color:#f5f5f4;">AES-256-GCM / HKDF</span>
+      </div>
+    </div>
+  </header>
+
+  <main style="display:grid; grid-template-columns:minmax(190px,290px) minmax(480px,1fr) minmax(240px,400px); flex:1; min-height:0; overflow-x:auto;">
+
+    <aside style="display:flex; flex-direction:column; min-height:0; overflow-y:auto; border-right:2px solid rgba(255,255,255,.16); background:rgba(255,255,255,.02);">
+      <div style="padding:14px 20px; border-bottom:2px solid rgba(255,255,255,.16); font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#a8a29e;">Control Panel</div>
+      <div style="display:flex; flex-direction:column; gap:10px; padding:20px;">
+        <button onClick="{{ run1 }}" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px 14px; background:rgba(34,211,238,.07); border:2px solid rgba(34,211,238,.55); color:#a5f3fc; font-family:Archivo, sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-align:left; cursor:pointer; transition:background .15s, box-shadow .15s;" style-hover="background:rgba(34,211,238,.2); box-shadow:0 0 18px rgba(34,211,238,.35);" style-active="background:rgba(34,211,238,.3);">
+          <span>1. Normal Handshake</span>
+          <sc-if value="{{ isActive1 }}" hint-placeholder-val="{{ false }}"><span style="width:8px; height:8px; background:#22d3ee; box-shadow:0 0 10px #22d3ee; animation:v2v-pulse 1s infinite; flex:none;"></span></sc-if>
+        </button>
+        <button onClick="{{ run2 }}" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px 14px; background:rgba(74,222,128,.07); border:2px solid rgba(74,222,128,.55); color:#bbf7d0; font-family:Archivo, sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-align:left; cursor:pointer; transition:background .15s, box-shadow .15s;" style-hover="background:rgba(74,222,128,.2); box-shadow:0 0 18px rgba(74,222,128,.35);" style-active="background:rgba(74,222,128,.3);">
+          <span>2. MITM &mdash; Auth ON</span>
+          <sc-if value="{{ isActive2 }}" hint-placeholder-val="{{ false }}"><span style="width:8px; height:8px; background:#4ade80; box-shadow:0 0 10px #4ade80; animation:v2v-pulse 1s infinite; flex:none;"></span></sc-if>
+        </button>
+        <button onClick="{{ run3 }}" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px 14px; background:rgba(236,48,19,.09); border:2px solid rgba(236,48,19,.7); color:#fecaca; font-family:Archivo, sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-align:left; cursor:pointer; transition:background .15s, box-shadow .15s;" style-hover="background:rgba(236,48,19,.24); box-shadow:0 0 18px rgba(236,48,19,.45);" style-active="background:rgba(236,48,19,.34);">
+          <span>3. MITM &mdash; Auth OFF</span>
+          <sc-if value="{{ isActive3 }}" hint-placeholder-val="{{ false }}"><span style="width:8px; height:8px; background:#ec3013; box-shadow:0 0 10px #ec3013; animation:v2v-pulse 1s infinite; flex:none;"></span></sc-if>
+        </button>
+        <button onClick="{{ run4 }}" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px 14px; background:rgba(168,85,247,.09); border:2px solid rgba(168,85,247,.6); color:#e9d5ff; font-family:Archivo, sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-align:left; cursor:pointer; transition:background .15s, box-shadow .15s;" style-hover="background:rgba(168,85,247,.22); box-shadow:0 0 18px rgba(168,85,247,.4);" style-active="background:rgba(168,85,247,.32);">
+          <span>4. Replay Attack</span>
+          <sc-if value="{{ isActive4 }}" hint-placeholder-val="{{ false }}"><span style="width:8px; height:8px; background:#a855f7; box-shadow:0 0 10px #a855f7; animation:v2v-pulse 1s infinite; flex:none;"></span></sc-if>
+        </button>
+      </div>
+
+      <div style="padding:14px 20px; border-top:2px solid rgba(255,255,255,.16); border-bottom:2px solid rgba(255,255,255,.16); font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#a8a29e;">Session Parameters</div>
+      <div style="display:flex; flex-direction:column;">
+        <sc-for list="{{ params }}" as="row" hint-placeholder-count="6">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:10px 20px; border-bottom:1px solid rgba(255,255,255,.07);">
+            <span style="font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#78716c;">{{ row.k }}</span>
+            <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:11px; color:#d6d3d1; text-align:right;">{{ row.v }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:auto; padding:16px 20px; border-top:2px solid rgba(255,255,255,.16); font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; line-height:1.7; color:#57534e;">
+        demo.py &middot; dashboard/backend/app.py<br>ws://localhost:8000/ws
+      </div>
+    </aside>
+
+    <section style="display:flex; flex-direction:column; min-width:0; min-height:0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 22px; border-bottom:2px solid rgba(255,255,255,.16);">
+        <span style="font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#a8a29e;">Live Network Arena</span>
+        <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; letter-spacing:.1em; color:#57534e;">{{ arenaCaption }}</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; padding:9px 22px; border-bottom:1px solid rgba(255,255,255,.08); font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; background:rgba(255,255,255,.015);">
+        <span style="{{ flowTagStyle }}">{{ flowTagText }}</span>
+        <span style="{{ flowLineStyle }}">{{ flowLineText }}</span>
+      </div>
+
+      <div style="position:relative; flex:1; min-height:0; overflow:hidden;">
+        <svg style="position:absolute; inset:0; width:100%; height:100%; z-index:0;" preserveAspectRatio="none">
+          <sc-if value="{{ noMitm }}" hint-placeholder-val="{{ true }}">
+            <line x1="20%" y1="50%" x2="80%" y2="50%" stroke="{{ directLineStroke }}" stroke-width="2" stroke-dasharray="6 8" style="animation:v2v-dash 2.5s linear infinite;"></line>
+          </sc-if>
+          <sc-if value="{{ mitm }}" hint-placeholder-val="{{ false }}">
+            <line x1="20%" y1="50%" x2="50%" y2="50%" stroke="{{ mitmLegStroke }}" stroke-width="3" stroke-dasharray="{{ mitmLegDash }}" style="{{ mitmLegAnim }}"></line>
+            <line x1="50%" y1="50%" x2="80%" y2="50%" stroke="{{ mitmLegStroke }}" stroke-width="3" stroke-dasharray="{{ mitmLegDash }}" style="{{ mitmLegAnim }}"></line>
+          </sc-if>
+        </svg>
+
+        <sc-if value="{{ bannerText }}" hint-placeholder-val="{{ null }}">
+          <div style="{{ bannerStyle }}">{{ bannerText }}</div>
+        </sc-if>
+
+        <div style="position:absolute; left:20%; top:50%; transform:translate(-50%,-50%); z-index:3; display:flex; flex-direction:column; align-items:flex-start; gap:0; width:clamp(112px,25%,186px); border:2px solid rgba(34,211,238,.8); background:rgba(8,20,24,.9); box-shadow:0 0 26px rgba(34,211,238,.28);">
+          <div style="width:100%; padding:8px 12px; border-bottom:2px solid rgba(34,211,238,.5); font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#67e8f9;">Node 01 &middot; Leader</div>
+          <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; padding:14px 12px; min-width:0;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.7" stroke-linecap="square"><path d="M14 16H9m10 0h2v-3.6a2 2 0 0 0-.4-1.2l-2-2.6A2 2 0 0 0 17 8H5a2 2 0 0 0-2 2v6h2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+              <span style="font-size:13px; font-weight:700; color:#f5f5f4;">leader</span>
+              <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; color:#0891b2;">127.0.0.1:9200</span>
+            </div>
+          </div>
+          <div style="{{ leaderBadgeStyle }}">{{ leaderBadgeText }}</div>
+        </div>
+
+        <sc-if value="{{ mitm }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:4; display:flex; flex-direction:column; align-items:flex-start; width:clamp(112px,26%,196px); border:2px solid #ec3013; background:rgba(30,8,6,.94); box-shadow:0 0 40px rgba(236,48,19,.45); animation:v2v-mitm .35s ease-out;">
+            <div style="width:100%; padding:8px 12px; border-bottom:2px solid rgba(236,48,19,.6); font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#f87171;">Rogue Node &middot; MITM</div>
+            <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; padding:14px 12px; min-width:0;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ec3013" stroke-width="1.7" stroke-linecap="square" style="animation:v2v-pulse 1.1s infinite;"><path d="M20 13c0 5-8 9-8 9s-8-4-8-9V5l8-3 8 3z"></path><path d="M12 8v4"></path><path d="M12 15h.01"></path></svg>
+              <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-size:13px; font-weight:700; color:#fecaca;">attacker</span>
+                <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; color:#ec3013;">rogue CA cert 'mitm'</span>
+              </div>
+            </div>
+            <div style="{{ mitmBadgeStyle }}">{{ mitmBadgeText }}</div>
+          </div>
+        </sc-if>
+
+        <div style="position:absolute; left:80%; top:50%; transform:translate(-50%,-50%); z-index:3; display:flex; flex-direction:column; align-items:flex-start; width:clamp(112px,25%,186px); border:2px solid rgba(74,222,128,.8); background:rgba(8,22,14,.9); box-shadow:0 0 26px rgba(74,222,128,.24);">
+          <div style="width:100%; padding:8px 12px; border-bottom:2px solid rgba(74,222,128,.5); font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#86efac;">Node 02 &middot; Follower</div>
+          <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; padding:14px 12px; min-width:0;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="1.7" stroke-linecap="square"><path d="M14 16H9m10 0h2v-3.6a2 2 0 0 0-.4-1.2l-2-2.6A2 2 0 0 0 17 8H5a2 2 0 0 0-2 2v6h2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+              <span style="font-size:13px; font-weight:700; color:#f5f5f4;">follower-1</span>
+              <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; color:#16a34a;">127.0.0.1:9201</span>
+            </div>
+          </div>
+          <div style="{{ followerBadgeStyle }}">{{ followerBadgeText }}</div>
+        </div>
+
+        <sc-for list="{{ packets }}" as="p" hint-placeholder-count="0">
+          <div style="{{ p.style }}"></div>
+        </sc-for>
+
+        <div style="position:absolute; left:0; right:0; bottom:0; display:flex; align-items:center; gap:10px; padding:12px 22px; border-top:1px solid rgba(255,255,255,.08); font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:11px; color:#78716c; z-index:5;">
+          <span style="color:#22d3ee;">&#9656;</span>
+          <span>{{ arenaHint }}</span>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); border-top:2px solid rgba(255,255,255,.16); flex:none;">
+        <sc-for list="{{ telemetry }}" as="t" hint-placeholder-count="4">
+          <div style="display:flex; flex-direction:column; gap:6px; padding:16px 20px; border-right:1px solid rgba(255,255,255,.08);">
+            <span style="font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#78716c;">{{ t.k }}</span>
+            <span style="{{ t.style }}">{{ t.v }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <aside style="display:flex; flex-direction:column; min-height:0; border-left:2px solid rgba(255,255,255,.16); background:rgba(4,5,6,.75);">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:2px solid rgba(255,255,255,.16);">
+        <span style="font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#a8a29e;">Live Matrix Console</span>
+        <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; color:#57534e;">{{ logCount }} events</span>
+      </div>
+      <div ref="{{ logRef }}" style="flex:1; min-height:0; overflow-y:auto; padding:16px 18px 24px; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:11.5px; line-height:1.65;">
+        <sc-for list="{{ logs }}" as="line" hint-placeholder-count="6">
+          <div style="{{ line.wrapStyle }}">
+            <sc-if value="{{ line.tag }}" hint-placeholder-val="{{ null }}"><span style="{{ line.tagStyle }}">{{ line.tag }}</span></sc-if>
+            <span style="{{ line.style }}">{{ line.text }}</span>
+          </div>
+        </sc-for>
+        <div style="display:flex; gap:6px; color:#22d3ee; margin-top:6px;"><span>&gt;</span><span style="width:7px; height:14px; background:#22d3ee; animation:v2v-caret 1s step-end infinite;"></span></div>
+      </div>
+      <div style="padding:12px 18px; border-top:2px solid rgba(255,255,255,.16); font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; color:#57534e;">udp/loopback &middot; pqcrypto (PQClean) &middot; 3-msg mutual auth</div>
+    </aside>
+  </main>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;speed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.4,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Simulation&quot;},&quot;autoRun&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Simulation&quot;},&quot;vehicleCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:2,&quot;min&quot;:2,&quot;max&quot;:8,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Platoon&quot;}}">
+const C = { info:'#a8a29e', step:'#67e8f9', ok:'#4ade80', danger:'#ec3013', blocked:'#f59e0b', title:'#22d3ee', dim:'#78716c' };
+
+const SCEN = {
+  1: { label:'SCENARIO 1', status:'secure', steps:[
+    [0,'title','SCENARIO 1 :: AUTHENTICATED KEY EXCHANGE & SESSION SETUP',null,false,'','Both vehicles will prove who they are, then agree on a shared secret key.'],
+    [220,'info','[CA] provisioning platoon identities: leader, follower-1',null,false,'SETUP','Trusted authority issues each vehicle its certificate.'],
+    [420,'step','[leader] sent HELLO + nonce (a3f9c1e2...)',{r:'l2f',c:'#22d3ee'},false,'CONNECT','Leader opens the conversation with a random challenge.'],
+    [520,'info','[follower-1] got HELLO + nonce (a3f9c1e2...)',null,false,'CONNECT','Follower receives the challenge.'],
+    [420,'step',"[follower-1] sent cert 'follower-1' + Kyber public key (1184 B) + signature",{r:'f2l',c:'#4ade80'},false,'AUTH','Follower proves its identity and shares its public key.'],
+    [520,'info',"[leader] got follower cert 'follower-1' + Kyber public key (1184 B)",null,false,'AUTH','Leader receives the proof.'],
+    [420,'ok','[leader] follower certificate verified against CA  [OK]',null,false,'AUTH OK','Certificate checks out — it really is follower-1.'],
+    [420,'ok','[leader] follower signature over its Kyber key verified  [OK]  <- blocks MITM',null,false,'AUTH OK','Signature matches — this key was not swapped in transit.'],
+    [420,'step','[leader] encapsulated shared secret; derived session key via HKDF-SHA256',null,false,'KEY EXCHANGE','Leader locks a secret to the follower\u2019s public key.'],
+    [380,'step','[leader] sent leader cert + ciphertext + signature (mutual auth)',{r:'l2f',c:'#22d3ee'},false,'KEY EXCHANGE','Leader sends its own proof plus the locked secret.'],
+    [520,'ok','[follower-1] leader certificate verified against CA  [OK]',null,false,'AUTH OK','Follower confirms this really is the leader.'],
+    [380,'step','[follower-1] decapsulated shared secret; derived matching session key',null,false,'KEY EXCHANGE','Follower unlocks the same secret — keys now match.'],
+    [380,'ok','== secure session established -- both sides hold the same AES-256-GCM key ==',null,false,'SECURE','Encrypted channel is live.'],
+    [520,'step','[leader] TX AEAD datagram: "SET GAP 20m"  (seq 1)',{r:'l2f',c:'#22d3ee'},false,'MESSAGE','Leader sends an encrypted command.'],
+    [600,'ok',"[follower-1] ACK 'SET GAP 20m' by follower-1   (RTT 3.41 ms)",{r:'f2l',c:'#4ade80'},false,'MESSAGE OK','Follower decrypts it correctly and confirms.'],
+    [420,'info','[leader] session closed (BYE). 0 auth failures.',null,false,'CLOSE','Clean session end.']
+  ]},
+  2: { label:'SCENARIO 2', status:'blocked', steps:[
+    [0,'title','SCENARIO 2 :: MAN-IN-THE-MIDDLE (IDENTITY CHECKS ON)',null,false,'','An attacker sits between the vehicles and tries to swap in its own key — identity checks are ON.'],
+    [220,'info','[attacker] bound 127.0.0.1:9210 -- leader is mispointed here',null,false,'SETUP','Attacker positions itself on the wire.'],
+    [320,'danger','[!] attacker generated a ROGUE CA and self-issued cert \'mitm\'',null,true,'ATTACK','Attacker forges a fake identity certificate.'],
+    [460,'step','[leader] sent HELLO + nonce (7b12ee04...)',{r:'l2m',c:'#22d3ee'},false,'CONNECT','Leader\u2019s HELLO actually reaches the attacker first.'],
+    [420,'danger','[!] attacker relayed HELLO to follower-1:9211',{r:'m2f',c:'#ec3013'},false,'ATTACK','Attacker forwards it onward, staying invisible so far.'],
+    [520,'danger','[!] attacker presents rogue cert + swapped Kyber key',{r:'m2l',c:'#ec3013'},false,'ATTACK','Attacker tries to hand the leader its own forged key.'],
+    [560,'info',"[leader] got follower cert 'mitm' + Kyber public key (1184 B)",null,false,'AUTH','Leader receives the forged cert for inspection.'],
+    [460,'blocked','[leader] certificate chain INVALID -- not signed by the trusted platoon CA',null,false,'AUTH FAIL','Leader checks the signer — it is not the real CA.'],
+    [420,'blocked','[leader] SignatureError raised: refusing to establish a session',null,false,'AUTH FAIL','Leader refuses to proceed with an unverifiable identity.'],
+    [420,'blocked','MITM stopped. Attack failed.',null,false,'BLOCKED','No session, no key, no data — attacker gets nothing.'],
+    [380,'ok','== platoon integrity maintained -- 0 commands leaked, 0 injected ==',null,false,'SECURE','Identity checks did their job.'],
+    [340,'info','[follower-1] also rejected the attacker (expected, both directions checked)',null,false,'BLOCKED','Mutual auth means both sides independently refuse.']
+  ]},
+  3: { label:'SCENARIO 3', status:'hacked', steps:[
+    [0,'title','SCENARIO 3 :: MAN-IN-THE-MIDDLE (IDENTITY CHECKS OFF)',null,false,'','Same attacker, same position — but identity checks are OFF, so nothing stops it.'],
+    [220,'blocked','[config] secure=False -- Dilithium/PKI identity layer DISABLED',null,false,'CONFIG','The step that would have caught the forgery is switched off.'],
+    [320,'danger','[!] attacker bound 127.0.0.1:9220, relaying to follower-1:9221',null,true,'ATTACK','Attacker inserts itself between both vehicles.'],
+    [440,'step','[leader] sent HELLO + nonce (c40b91af...)',{r:'l2m',c:'#22d3ee'},false,'CONNECT','Leader\u2019s HELLO goes straight to the attacker.'],
+    [420,'danger','[!] INSECURE mode: skipping follower identity checks',{r:'m2f',c:'#ec3013'},false,'AUTH SKIPPED','No certificate check happens here at all.'],
+    [480,'danger','[!] attacker established BOTH sessions -- it is now in the middle',{r:'m2l',c:'#ec3013'},false,'ATTACK','Attacker now shares a key with each side separately.'],
+    [480,'danger','[!] handshake completed THROUGH the attacker (no identity checks)',null,false,'COMPROMISED','Both vehicles think they are talking to each other directly.'],
+    [460,'step','[leader] TX AEAD datagram: "SET GAP 20m"  (seq 1)',{r:'l2m',c:'#22d3ee'},false,'MESSAGE','Leader sends an encrypted command, believing it\u2019s private.'],
+    [520,'danger','[!] STOLEN plaintext from leader: "SET GAP 20m"',null,false,'INTERCEPTED','Attacker decrypts it with its own session key and reads it.'],
+    [420,'danger','[!] MODIFIED command before forwarding -> "BRAKE (injected by attacker)"',{r:'m2f',c:'#ec3013'},false,'TAMPERED','Attacker swaps the command before re-encrypting it onward.'],
+    [560,'blocked',"[follower-1] ACK 'BRAKE (injected by attacker)' -- vehicle braked",{r:'f2m',c:'#f59e0b'},false,'HIJACKED','Follower obeys the forged command — no way to detect it.'],
+    [520,'step','[leader] TX AEAD datagram: "SET GAP 25m"  (seq 2)',{r:'l2m',c:'#22d3ee'},false,'MESSAGE','Leader sends another command.'],
+    [460,'danger','[!] STOLEN plaintext from leader: "SET GAP 25m"',{r:'m2f',c:'#ec3013'},false,'INTERCEPTED','Read again — every message leaks.'],
+    [480,'danger','== COMPROMISED: encryption alone is not enough -- 2 commands read, 1 forged ==',null,false,'COMPROMISED','Encryption hid nothing from the attacker who holds a key.'],
+    [380,'info','Kyber + AES-256-GCM without Dilithium/PKI = no identity, no defence.',null,false,'LESSON','Encryption protects data in transit; only signatures prove who sent it.']
+  ]},
+  4: { label:'SCENARIO 4', status:'blocked', steps:[
+    [0,'title','SCENARIO 4 :: REPLAY ATTACK (REPLAY PROTECTION ON)',null,false,'','A valid encrypted packet is captured and re-sent later to trigger the action twice.'],
+    [220,'step','[leader] encrypt("OPEN GATE") -> AEAD packet, seq 1',{r:'l2f',c:'#a855f7'},false,'MESSAGE','Leader sends a genuine, sequence-numbered command.'],
+    [520,'ok','[follower-1] accepts genuine command: "OPEN GATE" (seq 1)',{r:'f2l',c:'#4ade80'},false,'MESSAGE OK','Follower actions it and records sequence 1 as seen.'],
+    [460,'danger','[!] attacker captures this encrypted packet off the air',null,false,'ATTACK','Attacker doesn\u2019t need the key — just a copy of the bytes.'],
+    [460,'danger','[!] attacker re-sends the SAME captured packet...',{r:'l2f',c:'#a855f7'},false,'ATTACK','Replays the identical packet later, unmodified.'],
+    [560,'blocked','[follower-1] replay rejected -- sequence 1 already seen (window base 1)',null,false,'AUTH FAIL','Follower recognizes the sequence number as already used.'],
+    [420,'blocked','[follower-1] packet discarded before decryption side effects',null,false,'BLOCKED','Discarded before it can trigger anything twice.'],
+    [380,'ok','== replay window held -- nonce reuse prevented ==',null,false,'SECURE','Replay protection did its job.'],
+    [340,'info','With check_replay=False the same packet would have been actioned twice.',null,false,'LESSON','Encryption alone doesn\u2019t stop a captured packet being resent.']
+  ]}
+};
+
+class Component extends DCLogic {
+  state = { scenario:0, running:false, status:'idle', logs:[], packets:[], mitm:false, flow:null };
+  logRef = React.createRef();
+  timers = [];
+  pid = 0;
+
+  componentDidMount() {
+    if (this.props.autoRun !== false) this.timers.push(setTimeout(() => this.run(1), 700));
+  }
+  componentWillUnmount() { this.clear(); }
+  componentDidUpdate(_p, prev) {
+    if (prev.logs !== this.state.logs && this.logRef.current) {
+      const el = this.logRef.current; el.scrollTop = el.scrollHeight;
+    }
+  }
+  clear() { this.timers.forEach(clearTimeout); this.timers = []; }
+
+  run(id) {
+    this.clear();
+    const s = SCEN[id];
+    const speed = this.props.speed || 1;
+    this.setState({ scenario:id, running:true, status:'running', logs:[], packets:[], mitm:false, flow:null });
+    let t = 0;
+    s.steps.forEach(([d, level, text, pkt, mitm, tag, plain]) => {
+      t += d / speed;
+      this.timers.push(setTimeout(() => {
+        this.setState(st => ({
+          logs: st.logs.concat([{ level, text, tag }]),
+          mitm: mitm ? true : st.mitm,
+          flow: { level, tag, plain: plain || text }
+        }));
+        if (pkt) this.spawn(pkt.r, pkt.c, speed);
+      }, t));
+    });
+    this.timers.push(setTimeout(() => this.setState({ running:false, status:s.status }), t + 500 / speed));
+  }
+
+  spawn(route, color, speed) {
+    const id = ++this.pid;
+    const dur = (route === 'l2f' || route === 'f2l' ? 1 : 0.6) / speed;
+    const p = { id, style: {
+      position:'absolute', top:'50%', width:'12px', height:'12px',
+      transform:'translate(-50%,-50%)', background:color, zIndex:6,
+      boxShadow:'0 0 14px 3px ' + color, border:'1px solid rgba(255,255,255,.7)',
+      animation:'pk-' + route + ' ' + dur + 's linear forwards'
+    }};
+    this.setState(st => ({ packets: st.packets.concat([p]) }));
+    this.timers.push(setTimeout(() => {
+      this.setState(st => ({ packets: st.packets.filter(x => x.id !== id) }));
+    }, dur * 1000 + 40));
+  }
+
+  renderVals() {
+    const { status, running, scenario, logs, packets, mitm, flow } = this.state;
+    const isBlocked = scenario === 2, isHacked = scenario === 3;
+    const mitmLegStroke = isHacked ? '#ec3013' : (running ? '#f59e0b' : '#57534e');
+    const mitmLegDash = isHacked ? '0' : '5 6';
+    const banner = !running && isBlocked ? { c:'#f59e0b', bg:'rgba(35,24,4,.92)', t:'CONNECTION REJECTED — forged certificate failed Dilithium verification, no session, no leak' }
+      : !running && isHacked ? { c:'#ec3013', bg:'rgba(35,6,4,.92)', t:'SESSION HIJACKED — attacker holds two live sessions and edits every message unseen' }
+      : null;
+    const ICON = { ok:'✓', danger:'✕', blocked:'⛔', step:'→', info:'·', title:'' };
+    const map = {
+      idle:    ['#78716c', 'STANDBY'],
+      running: ['#22d3ee', 'LINK ACTIVE'],
+      secure:  ['#4ade80', 'SYSTEM SECURE'],
+      blocked: ['#f59e0b', 'ATTACK BLOCKED'],
+      hacked:  ['#ec3013', 'SYSTEM COMPROMISED']
+    };
+    const [col, label] = map[status];
+    const tele = [
+      ['Handshake', running ? '···' : (scenario ? '11.8 ms' : '--'), col],
+      ['Session RTT', scenario === 1 ? '3.41 ms' : (scenario ? '4.02 ms' : '--'), '#f5f5f4'],
+      ['Packets', String(logs.filter(l => l.level === 'step' || l.level === 'danger').length), '#f5f5f4'],
+      ['Auth failures', scenario === 2 ? '2  (rejected)' : scenario === 4 ? '1  (replay)' : scenario === 3 ? '0  (checks off)' : '0', scenario === 3 ? '#ec3013' : '#f5f5f4']
+    ];
+    return {
+      vehicleCount: this.props.vehicleCount ?? 2,
+      statusLabel: label,
+      statusDotStyle: { width:10, height:10, flex:'none', background:col, boxShadow:'0 0 12px ' + col, animation: running || status !== 'idle' ? 'v2v-pulse 1.4s infinite' : 'none' },
+      statusTextStyle: { fontSize:12, fontWeight:800, letterSpacing:'.16em', textTransform:'uppercase', color:col },
+      isActive1: scenario === 1, isActive2: scenario === 2, isActive3: scenario === 3, isActive4: scenario === 4,
+      run1: () => this.run(1), run2: () => this.run(2), run3: () => this.run(3), run4: () => this.run(4),
+      mitm, noMitm: !mitm, packets,
+      directLineStroke: isBlocked && !running ? 'rgba(74,222,128,.5)' : 'rgba(255,255,255,.18)',
+      mitmLegStroke, mitmLegDash,
+      mitmLegAnim: { animation: isHacked ? 'v2v-dash 1.2s linear infinite' : (running ? 'v2v-dash 2.5s linear infinite' : 'none'), filter: isHacked ? 'drop-shadow(0 0 4px #ec3013)' : 'none' },
+      mitmBadgeText: running ? 'RELAYING TRAFFIC…' : isBlocked ? '✕ REJECTED — invalid cert' : isHacked ? '● ACTIVE — reading & editing' : '',
+      mitmBadgeStyle: { width:'100%', padding:'6px 12px', borderTop:'1px solid rgba(236,48,19,.4)', fontSize:9, fontWeight:700, letterSpacing:'.1em', textTransform:'uppercase', color: isBlocked && !running ? '#a8a29e' : '#fca5a5', textDecoration: isBlocked && !running ? 'line-through' : 'none' },
+      leaderBadgeText: !running && scenario ? (isHacked ? '✕ IDENTITY NOT CHECKED' : '✓ IDENTITY VERIFIED') : '',
+      leaderBadgeStyle: { width:'100%', padding: !running && scenario ? '6px 12px' : 0, height: !running && scenario ? 'auto' : 0, overflow:'hidden', borderTop: !running && scenario ? '1px solid rgba(34,211,238,.3)' : 'none', fontSize:9, fontWeight:700, letterSpacing:'.1em', textTransform:'uppercase', color: isHacked ? '#ec3013' : '#4ade80' },
+      followerBadgeText: !running && scenario ? (isHacked ? '✕ TALKING TO ATTACKER' : '✓ IDENTITY VERIFIED') : '',
+      followerBadgeStyle: { width:'100%', padding: !running && scenario ? '6px 12px' : 0, height: !running && scenario ? 'auto' : 0, overflow:'hidden', borderTop: !running && scenario ? '1px solid rgba(74,222,128,.3)' : 'none', fontSize:9, fontWeight:700, letterSpacing:'.1em', textTransform:'uppercase', color: isHacked ? '#ec3013' : '#4ade80' },
+      bannerText: banner ? banner.t : null,
+      bannerStyle: banner ? { position:'absolute', left:'50%', top:'12%', transform:'translateX(-50%)', zIndex:7, maxWidth:'72%', padding:'10px 20px', border:'2px solid ' + banner.c, background:banner.bg, color:banner.c, fontSize:12, fontWeight:700, letterSpacing:'.03em', textAlign:'center', boxShadow:'0 0 24px ' + banner.c + '55' } : null,
+      flowTagText: flow && flow.tag ? flow.tag : '',
+      flowTagStyle: { flex:'none', padding:'2px 8px', border:'1px solid ' + (flow ? C[flow.level] || C.info : '#57534e'), color: flow ? C[flow.level] || C.info : '#57534e', fontSize:9, fontWeight:700, letterSpacing:'.14em', textTransform:'uppercase' },
+      flowLineText: flow ? flow.plain : 'Press a scenario to begin.',
+      flowLineStyle: { color: flow ? '#d6d3d1' : '#57534e', fontWeight:500 },
+      logCount: logs.length,
+      logs: logs.map(l => ({
+        text: (l.level === 'title' ? '' : (ICON[l.level] || '·') + '  ') + l.text,
+        tag: l.tag || null,
+        tagStyle: { flex:'none', padding:'1px 6px', marginRight:8, border:'1px solid ' + (C[l.level] || C.info), color: C[l.level] || C.info, fontSize:8, fontWeight:700, letterSpacing:'.1em' },
+        wrapStyle: { display:'flex', alignItems:'baseline', borderLeft: l.level === 'danger' ? '2px solid #ec3013' : l.level === 'ok' ? '2px solid #4ade80' : l.level === 'blocked' ? '2px solid #f59e0b' : '2px solid transparent', paddingLeft:6, marginTop: l.level === 'title' ? 8 : 1, paddingBottom:2 },
+        style: {
+          color: C[l.level] || C.info,
+          fontWeight: l.level === 'title' || l.level === 'blocked' || l.level === 'danger' ? 700 : 400,
+          paddingBottom: 2,
+          borderBottom: l.level === 'title' ? '1px solid rgba(34,211,238,.35)' : 'none',
+          letterSpacing: l.level === 'title' ? '.08em' : 'normal',
+          textWrap: 'pretty'
+        }
+      })),
+      arenaCaption: scenario ? SCEN[scenario].label + ' · ' + (running ? 'RUNNING' : 'COMPLETE') : 'IDLE · NO TRAFFIC',
+      arenaHint: mitm ? 'rogue node interposed on the loopback path — traffic is being relayed' : 'leader ⇄ follower-1 · 3-message mutual-auth handshake over UDP',
+      telemetry: tele.map(([k, v, c]) => ({ k, v, style: { fontFamily:'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize:16, fontWeight:700, color:c } })),
+      params: [
+        { k:'KEM', v:'ML-KEM-768 (Kyber)' },
+        { k:'Signature', v:'ML-DSA-65 (Dilithium3)' },
+        { k:'AEAD', v:'AES-256-GCM' },
+        { k:'KDF', v:'HKDF-SHA256' },
+        { k:'Pub key', v:'1184 B' },
+        { k:'Transport', v:'UDP / loopback' },
+        { k:'Identity', v: scenario === 3 ? 'DISABLED' : 'CA-signed, ON' }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+
+--- Page 1 ---
+Department of CSE (AIML) 
+Post-Quantum Secure Firmware Distribution and
+Vehicle Authentication using CRYSTALS-Dilithium
+Presented By:
+727823TUAM058
+VARSHINI B M
+727823TUAM027
+MOHAMMED SHAAHID
+KHALVATHY A
+727823TUAM041
+SABREESH RAJ N
+Guided by:
+ Dr. Suma Sira Jacob,
+ Associate Professor,
+ Department of CSE(AIML)
+Sri Krishna College of Technology, Coimbatore
+An Autonomous Institution | Accredited by NAAC with ‘A’ Grade 
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+Batch/Group/Team No.: 11
+
+--- Page 2 ---
+Department of CSE (AIML) 
+Overview
+Motivation
+SDG Mapping & IKS Integration
+Base Paper Explanation
+Literature Survey
+Problem Statement
+Objectives of the project
+Proposed Methodology
+Comparative Analysis
+Project Plan
+Expected outcome resources
+References
+2/5/2026
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2
+
+--- Page 3 ---
+Motivation
+2/5/2026
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+3
+Department of CSE (AIML) 
+A single forged safety message can affect
+every vehicle within a platoon, message
+authenticity a critical requirement for safe
+operation. 
+Modern 
+connected 
+vehicles 
+support
+frequent 
+Over-the-Air 
+(OTA) 
+firmware
+updates, requiring every update to be
+cryptographically 
+verified 
+before
+installation to prevent unauthorized code
+execution. 
+Autonomous vehicle platoons exchange
+10–50 authenticated safety messages per
+second, 
+requiring 
+fast 
+and 
+reliable
+signature verification.
+
+--- Page 4 ---
+Department of CSE (AIML) 
+SDG Alignment & IKS Integration
+SDG Alignment:
+SDG 9 – Industry, Innovation, and Infrastructure: Secure
+and resilient intelligent transportation systems.
+SDG 11 – Sustainable Cities and Communities:
+Improved road safety and reliable autonomous mobility.
+Indian Knowledge System (IKS):
+Raksha (Protection) : Proactive safeguarding of
+safety‑critical transportation systems through
+quantum‑resilient security.
+Anvikshiki (Scientific Inquiry) : Application of analytical
+reasoning and cryptographic innovation to solve emerging
+cybersecurity challenges.
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+4
+
+--- Page 5 ---
+Literature Survey (Existing Technology)
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+5
+Ref.No
+Title, Author, Year
+Methodology Used
+Dataset /
+Evaluation
+Advantages
+Disadvantages
+[1]
+Quantum-resistant
+Transport Layer Security,
+García et al., 2024
+Hybrid TLS
+integrating Kyber
+and Dilithium with
+modified OpenSSL
+prototype
+Measured
+handshake
+latency, overhead,
+and CPU usage in a
+controlled network
+setup
+Strong quantum
+resistance;
+practical protocol
+implementation
+Higher overhead;
+not designed for
+vehicular
+environments
+[2]
+On Hardware Acceleration
+of Quantum-Resistant
+FOTA, Perazzo, 2024
+Experimental
+implementation on
+automotive
+hardware
+Firmware signing
+benchmarks
+Real-world OTA
+feasibility;
+implementation-
+focused
+Emphasizes
+signatures more
+than V2V
+communication
+[3]
+Efficient Implementation of
+CRYSTALS-Kyber on ESP32,
+2025
+Embedded system
+implementation
+Runtime and
+memory analysis
+Shows PQ
+feasibility on
+constrained
+devices
+Hardware-specific
+results
+[4]
+Open Quantum Safe:
+Practical Quantum-Safe
+Cryptography, Stebila et al.,
+2020
+Library-based
+implementation and
+TLS integration
+Handshake
+performance tests
+Production-ready
+crypto framework
+Requires
+integration effort
+Department of CSE (AIML) 
+
+--- Page 6 ---
+Literature Survey (Existing Technology)
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+5
+Ref.No
+Title, Author, Year
+Methodology Used
+Dataset / Evaluation
+Advantages
+Disadvantages
+[5]
+CRYSTALS-Kyber: A CCA-
+Secure Module-Lattice-
+Based KEM, Bos et al., 2018
+Algorithm design with
+reference
+implementation
+Security and
+performance
+benchmarks
+NIST-selected; strong
+security
+More theoretical than
+system-level
+[6]
+CRYSTALS-Dilithium: Digital
+Signatures from Module
+Lattices, Ducas et al., 2018
+Signature scheme
+with implementation
+notes
+Computational
+analysis
+Quantum-resistant
+authentication
+Larger signature sizes
+[7]
+Post-Quantum Security for
+IoT Devices, Alkim et al.,
+2016
+Implementation study
+on embedded
+platforms
+Device-level
+benchmarks
+Demonstrates real-
+world deployment
+Older performance
+data
+[8]
+Secure Vehicular
+Communication Using
+Cryptographic Techniques: A
+Survey, Lenka & Rath
+(India), 2019
+Threat and protocol
+analysis
+Literature-based
+Highlights vehicular
+security needs
+Does not address PQ
+cryptography
+[9]
+3GPP LTE vs IEEE 802.11p
+for Vehicular Safety, Vinel,
+2012
+Network simulation
+Vehicular traffic
+scenarios
+Identifies low-latency
+requirements
+Focus on classical
+security
+Department of CSE (AIML) 
+
+--- Page 7 ---
+PROBLEM STATEMENT
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+6
+Department of CSE (AIML) 
+Ensuring the authenticity of communicating vehicles and the
+integrity of safety-critical messages remains a major challenge
+in autonomous vehicle platoon networks. As quantum
+computing threatens the security of classical digital signature
+algorithms, a quantum-resistant authentication mechanism is
+essential 
+to 
+establish 
+trust 
+and 
+prevent 
+unauthorized
+communication.
+
+--- Page 8 ---
+Objective Of The Project
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+6
+Department of CSE (AIML) 
+To develop a post-quantum authentication framework using
+CRYSTALS-Dilithium 
+that 
+ensures 
+secure 
+vehicle
+authentication, message integrity, and trusted communication in
+autonomous vehicle platoon networks.
+
+--- Page 9 ---
+Department of CSE (AIML) 
+Proposed System / Methodology
+1. Vehicle Registration:
+Generates Dilithium public/private key pairs.
+Shares public keys through the trusted server.
+2. Message Authentication:
+Signs outgoing platoon messages using the Dilithium private
+key.
+Attaches the digital signature to each message.
+3. Signature Verification:
+Verifies received signatures using the sender's public key.
+Accepts valid messages and rejects forged or modified
+messages.
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+8
+
+--- Page 10 ---
+Proposed System / Methodology
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+8
+Department of CSE (AIML) 
+
+--- Page 11 ---
+Results
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+11
+Department of CSE (AIML) 
+
+--- Page 12 ---
+Results
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+11
+Department of CSE (AIML) 
+
+--- Page 13 ---
+Department of CSE (AIML) 
+Expected Outcome & Resources
+Final Deliverables:
+Winning a Hackathon:
+ Develop an innovative solution under time constraints,
+demonstrating creativity and technical skill. Recognition
+validates the idea’s real-world impact.
+Publishing a Paper:
+ Share research and findings in an academic format to
+contribute to the field. Enhances credibility and supports future
+advancements.
+Patenting the Idea:
+ Secure intellectual property rights to protect the invention.
+Enables commercialization and partnership opportunities.
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+11
+
+--- Page 14 ---
+Department of CSE (AIML) 
+Conclusion
+The proposed authentication framework addresses the need for
+quantum-resistant vehicle authentication in autonomous platoon
+networks using CRYSTALS-Dilithium.
+The implementation enables secure vehicle identity verification,
+message authenticity, and integrity through post-quantum digital
+signatures.
+Experimental validation demonstrates successful signature
+generation and verification, effectively preventing message forgery
+and impersonation attacks.
+This work extends the secure communication framework previously
+developed and establishes a foundation for trusted, quantum-secure
+autonomous vehicle communication.
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+2/5/2026
+11
+
+--- Page 15 ---
+Department of CSE (AIML) 
+Thank you
+2/5/2026
+This project aligns with NEP 2020 goals of innovation, sustainability, and IKS integration.
+13

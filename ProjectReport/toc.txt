@@ -1,0 +1,403 @@
+TABLE OF CONTENTS 
+CHAPTER 
+NO. 
+TITLE 
+PAGE 
+NO. 
+ 
+ACKNOWLEDGEMENT 
+iv 
+ 
+ABSTRACT 
+v 
+ 
+LIST OF TABLES 
+ix 
+ 
+LIST OF FIGURES 
+x 
+ 
+LIST OF SYMBOLS, ABBREVIATIONS 
+AND NOMENCLATURE 
+xi 
+1 
+INTRODUCTION 
+1 
+ 
+1.1 Background 
+2 
+ 
+1.2 Neural Architecture Search for Edge ECG 
+Classification 
+3 
+ 
+1.3 Motivation 
+4 
+ 
+1.4 Organization Of The Report 
+5 
+2 
+LITERATURE REVIEW 
+7 
+ 
+2.1 Neural Architecture Search 
+7 
+ 
+2.2 Lightweight Deep Learning For ECG 
+Classification 
+8 
+ 
+2.3 Multi-Objective Neural Architecture Search 
+8 
+ 
+2.4 Latency-Aware And Hardware-Aware Nas 
+9 
+ 
+2.5 Power And Energy-Aware Edge Computing 
+10 
+ 
+2.6 Quantization And Resource-Efficient 
+Deployment 
+11 
+ 
+2.7 Summary Of Literature Review 
+11 
+3 
+PROBLEM IDENTIFICATION 
+13 
+
+--- Page 7 ---
+vii 
+ 
+ 
+3.1 Problem Statement 
+13 
+ 
+3.2 Limitations Of Existing Systems 
+14 
+ 
+3.3 Research Gap 
+15 
+4 
+OBJECTIVE 
+17 
+ 
+4.1 Objectives Of The Project 
+17 
+ 
+4.2 Scope Of The Project 
+18 
+5 
+PROBLEM SOLUTION 
+21 
+ 
+5.1 Proposed System Overview 
+21 
+ 
+5.2 Working Principle 
+22 
+ 
+5.3 Multi-Objective Optimization Model 
+23 
+ 
+5.4 Pareto-Based Architecture Selection 
+25 
+ 
+5.5 Latency, Power And Resource-Efficiency 
+Model 
+26 
+ 
+5.6 Selected Architecture And Quantization 
+27 
+ 
+5.7 System Flow And Solution Summary 
+28 
+6 
+BLOCK DIAGRAM 
+31 
+ 
+6.1 Overall System Architecture 
+31 
+ 
+6.2 Description Of Functional Units 
+34 
+ 
+6.3 System Flow 
+35 
+ 
+6.4 Nas Architecture 
+38 
+7 
+METHODOLOGY 
+41 
+ 
+7.1 ECG Data Preparation And Input 
+Representation 
+41 
+ 
+7.2 Nas Search Space 
+41 
+ 
+7.3 Evolutionary Nas Search 
+43 
+ 
+7.4 Multi-Objective Evaluation 
+44 
+ 
+7.5 Pareto Analysis And Weighted Fitness 
+45 
+
+--- Page 8 ---
+viii 
+ 
+ 
+7.6 Selected Architecture And Full Training 
+46 
+ 
+7.7 Int8 Quantization 
+47 
+ 
+7.8 Performance And Resource Evaluation 
+47 
+ 
+7.9 Deployment Workflow 
+48 
+8 
+RESULTS AND DISCUSSION 
+51 
+ 
+8.1 Experimental Setup 
+51 
+ 
+8.2 Nas Search And Architecture Selection 
+52 
+ 
+8.3 Classification Performance 
+52 
+ 
+8.4 Class-Wise Performance Analysis 
+53 
+ 
+8.5 Memory And Model Size Analysis 
+54 
+ 
+8.6 Inference Latency Analysis 
+55 
+ 
+8.7 Effect Of Int8 Quantization 
+56 
+ 
+8.8 Accuracy, Efficiency And Deployment 
+Tradeoff 
+57 
+ 
+8.9 Discussion 
+58 
+9 
+CONCLUSION 
+60 
+ 
+9.1 Conclusion 
+60 
+ 
+9.2 Future Scope 
+62 
+ 
+APPENDICES 
+64 
+ 
+SDG MAPPING 
+68 
+ 
+REFERENCES 
+70 
+ 
+ 
+
+--- Page 9 ---
+ix 
+ 
+LIST OF TABLES 
+TABLE 
+NO. 
+TITLE 
+PAGE 
+NO. 
+7.1 
+NAS Search-Space Parameters 
+42 
+7.2 
+Evolutionary NAS Configuration 
+43 
+7.3 
+Selected NAS Architecture 
+46 
+7.4 
+Classification Performance Comparison 
+47 
+7.5 
+Memory and Latency Comparison of NAS 
+Model Variants 
+48 
+8.1 
+Class-wise Performance of NAS INT8 Model 
+53 
+8.2 
+Memory and Model Size Comparison 
+54 
+8.3 
+Inference Latency Comparison 
+55 
+8.4 
+Overall NAS Performance and Deployment 
+Characteristics 
+57 
+ 
+ 
+
+--- Page 10 ---
+x 
+ 
+LIST OF FIGURES 
+FIGURE 
+NO. 
+TITLE 
+PAGE 
+NO. 
+6.1 
+Overall system architecture of the proposed 
+multi-objective NAS-based wearable ECG 
+arrhythmia classification system 
+32 
+6.2 
+System flow algorithm proposed for the multi-
+objective NAS based wearable ECG 
+classification system 
+36 
+6.3 
+Selected NAS architecture for wearable ECG 
+arrhythmia classification 
+39 
+8.1 
+Class-wise Performance Analysis of NAS 
+53 
+8.2 
+Model Size with Memory Comparison 
+54 
+8.3 
+Inference Latency Comparison 
+55 
+ 
+ 
+
+--- Page 11 ---
+xi 
+ 
+LIST OF SYMBOLS, ABBREVIATIONS AND 
+NOMENCLATURE 
+ABBREVIATIONS 
+ABBREVIATION 
+EXPANSION 
+AI 
+Artificial Intelligence 
+CNN 
+Convolutional Neural Network 
+ECG 
+Electrocardiogram 
+ESP32 
+Espressif Systems 32-bit Microcontroller 
+F1 
+F1-Score 
+FP32 
+32-bit Floating Point 
+GAP 
+Global Average Pooling 
+GPIO 
+General Purpose Input/Output 
+IoT 
+Internet of Things 
+INT8 
+8-bit Integer 
+LSTM 
+Long Short-Term Memory 
+MCU 
+Microcontroller Unit 
+NAS 
+Neural Architecture Search 
+NN 
+Neural Network 
+RAM 
+Random Access Memory 
+ReLU 
+Rectified Linear Unit 
+ReLU6 
+Rectified Linear Unit capped at 6 
+RNN 
+Recurrent Neural Network 
+RR 
+R-R Interval 
+TFLM 
+TensorFlow Lite for Microcontrollers 
+MIT-BIH 
+Massachusetts Institute of Technology – Beth Israel 
+Hospital 
+SDG 
+Sustainable Development Goal 
+
+--- Page 12 ---
+xii 
+ 
+SYMBOLS 
+SYMBOL 
+DESCRIPTION 
+A 
+Candidate neural-network architecture 
+K 
+Number of ECG classes 
+F1ₖ 
+F1-score of class k 
+Pₖ 
+Precision of class k 
+Rₖ 
+Recall of class k 
+F1_macro 
+Macro-F1 score 
+Nₚₐᵣₐₘₛ 
+Number of trainable parameters 
+L 
+Inference latency 
+w₁ 
+Weight assigned to classification performance 
+w₂ 
+Weight assigned to parameter cost 
+w₃ 
+Weight assigned to inference latency 
+T 
+Length of the temporal/context window 
+Xₜ 
+Input sequence at time t 
+xₜ 
+Feature vector at time t 
+I 
+ECG input tensor 
+C 
+Number of convolutional stages 
+F 
+Number of convolutional filters 
+Kₑ 
+Convolution kernel length 
+S 
+Convolution stride 
+D 
+Dropout rate 
+H 
+Dense-layer width 
+M 
+Model memory requirement 
+Eᵢₙf 
+Energy consumed per inference 
+Pₐᵥg 
+Average device power 
+
+--- Page 13 ---
+1 
